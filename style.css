@@ -1,0 +1,29 @@
+/* responsive */
+main {
+  width: 95%;
+  margin: 0 auto;
+}
+
+img {
+  width: 100%;
+}
+
+/* if screen width >= 768 px, make the main skinnier so it's easier to read*/
+@media only screen and (min-width: 768px) {
+  main {
+    max-width: 60% !important;
+  }
+}
+
+#gameboard-table {
+  border-collapse: collpase;
+  border: 1px solid black;
+  width: 100%;
+  text-align: center;
+}
+
+#gameboard-table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
