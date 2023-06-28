@@ -37,6 +37,9 @@ const Gameboard = (() => {
   };
   
   const isGameOver = () => {
+    // The logic below will either return a winner or 'tie'
+    let gameStatus = 'tie'
+
     // Check for straights
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
@@ -47,6 +50,7 @@ const Gameboard = (() => {
     // Check for diagonals
 
     // Check for tie
+    return gameStatus;
   }
 
   return {
