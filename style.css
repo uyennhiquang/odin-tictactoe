@@ -18,12 +18,17 @@ img {
 #gameboard-table {
   border-collapse: collpase;
   border: 1px solid black;
-  width: 100%;
+  margin: 0 auto;
   text-align: center;
 }
 
 #gameboard-table td {
   border: 1px solid black;
-  padding: 8px;
+  padding: 20px;
+
+  font-size: 1.5rem;
 }
 
+.player--active {
+  background: yellow;
+}
