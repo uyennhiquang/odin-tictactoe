@@ -35,27 +35,56 @@ const Gameboard = (() => {
     const [row, col] = location;
     if (!gameboard[row][col]) gameboard[row][col] = mark;
   };
-  
+
   const isGameOver = () => {
     // The logic below will either return a winner or 'tie'
-    let gameStatus = 'tie'
 
+    // Check for across
+    for (let i = 0; i < boardSize; i++) {
+      if (
+        gameboard[i][0] === gameboard[i][1] &&
+        gameboard[i][1] === gameboard[i][2]
+      ) {
+        const output = gameboard[i][0];
+        if (output) return output;
+      }
+    }
     // Check for straights
     for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
-        
+      if (
+        gameboard[0][i] === gameboard[1][i] &&
+        gameboard[1][i] === gameboard[2][i]
+      ) {
+        const output = gameboard[0][i];
+        if (output) return output;
       }
     }
 
     // Check for diagonals
+    if (
+      (gameboard[0][0] === gameboard[1][1] &&
+        gameboard[1][1] === gameboard[2][2]) ||
+      (gameboard[0][2] === gameboard[1][1] &&
+        gameboard[1][1] === gameboard[2][0])
+    ) {
+      const output = gameboard[1][1];
+      if (output) return output;
+    }
 
     // Check for tie
-    return gameStatus;
-  }
+    // let tie = false;
+    for (let i = 0; i < boardSize; i++) {
+      if (gameboard[i].includes("")) return 1;
+    }
+
+    // return gameStatus;
+    return "tie";
+  };
 
   return {
     gameboard,
     addMark,
+    isGameOver,
     p1,
     p2,
   };
@@ -83,6 +112,7 @@ startBtn.addEventListener("click", function () {
     const boxes = document.querySelectorAll("td");
     const p1Indicator = document.getElementById("indicator--p1");
     const p2Indicator = document.getElementById("indicator--p2");
+    const winnerIndicator = document.getElementById("indicator--winner");
 
     let isGame = false;
     let activePlayer = 1;
@@ -110,6 +140,11 @@ startBtn.addEventListener("click", function () {
             Gameboard.addMark(Gameboard.p2.mark, [row, col]);
             boxes[i].innerHTML = Gameboard.p2.mark;
           }
+
+          if (Gameboard.isGameOver() === Gameboard.p1.mark)
+            winnerIndicator.innerHTML = `Congrats, ${Gameboard.p1.name}!`;
+          else if (Gameboard.isGameOver() === Gameboard.p2.mark)
+            winnerIndicator.innerHTML = `Congrats, ${Gameboard.p2.name}!`;
           switchPlayer();
         }
       });
