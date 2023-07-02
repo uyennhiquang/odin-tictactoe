@@ -92,7 +92,6 @@ const Gameboard = (() => {
 
 const indexTable = (() => {
   const tbodyEl = document.getElementById("gameboard-table").firstElementChild;
-  console.log(tbodyEl);
   for (let i = 0; i < boardSize; i++) {
     const currentRow = tbodyEl.children[i];
     currentRow.setAttribute("data-row", i);
@@ -132,6 +131,7 @@ startBtn.addEventListener("click", function () {
       boxes[i].addEventListener("click", function (event) {
         const row = event.target.closest("tr").getAttribute("data-row");
         const col = boxes[i].getAttribute("data-col");
+
         if (!boxes[i].innerHTML) {
           if (activePlayer === 1) {
             Gameboard.addMark(Gameboard.p1.mark, [row, col]);
@@ -140,7 +140,7 @@ startBtn.addEventListener("click", function () {
             Gameboard.addMark(Gameboard.p2.mark, [row, col]);
             boxes[i].innerHTML = Gameboard.p2.mark;
           }
-
+          
           if (Gameboard.isGameOver() === Gameboard.p1.mark)
             winnerIndicator.innerHTML = `Congrats, ${Gameboard.p1.name}!`;
           else if (Gameboard.isGameOver() === Gameboard.p2.mark)
