@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Tic Tac Toe!</title>
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./reset.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tic Tac Toe!</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./reset.css" />
+  </head>
+  <body>
     <main>
+      <div>
+        <div id="display--players" class="flex">
+          <div id="indicator--p1" class="flex">
+            <p>Player 1:</p>
+            <input type="text" />
+          </div>
+          <div id="indicator--p2" class="flex">
+            <p>Player 2:</p>
+            <input type="text" />
+          </div>
+        </div>
+        <div id="buttons" class="flex">
+          <button id="button--start">Start</button>
+          <button id="button--restart">Restart</button>
+        </div>
+      </div>
       <table id="gameboard-table">
         <tbody>
           <tr>
@@ -27,13 +43,8 @@
           </tr>
         </tbody>
       </table>
-      <div id="indicator--player">
-        <button id="button--start">Start</button>
-        <p id="indicator--p1">Player 1</p>
-        <p id="indicator--p2">Player 2</p>
-        <p id="indicator--winner"></p>
-      </div>
-    </main>  
-  <script src="./scripts.js"></script>
-</body>
+      <p id="indicator--winner" style="text-align: center"></p>
+    </main>
+    <script src="./scripts.js"></script>
+  </body>
 </html>

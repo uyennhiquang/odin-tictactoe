@@ -15,34 +15,56 @@ img {
   }
 }
 
+/* Styling classes */
+.flex {
+  display: flex;
+}
+
+/* Gameboard */
 #gameboard-table {
   border-collapse: collpase;
   border: 1px solid black;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
 #gameboard-table td {
   border: 1px solid black;
   font-size: 4rem;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   display: table-cell;
   text-align: center;
   vertical-align: middle;
 }
-
-/* #gameboard-table td div {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-
-  /* width: 200px; */
-  /* height: 200px; */
-  /* font-size: 2rem;
-} */
 
 .player--active {
   background: yellow;
 }
 
+/* Player display section */
+#display--players {
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+button {
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+
+  padding: 20px 40px;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+button:hover {
+  background: gray;
+}
+
+#buttons {
+  justify-content: center;
+  gap: 2rem;
+}
