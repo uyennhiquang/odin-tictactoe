@@ -118,6 +118,26 @@ const Gameboard = (() => {
       currentTD.setAttribute("data-col", j);
     }
   }
+
+  // Setting theme based on user's past setting
+  if (localStorage.getItem("theme")) {
+    document.documentElement.className = localStorage.getItem("theme");
+  }
+})();
+
+const themeSwitch = (() => {
+  const setTheme = function () {
+    const root = document.documentElement;
+    const newTheme = root.className === "dark" ? "light" : "dark";
+    const svgColor = root.className === "light" ? "white" : "#24283b";
+
+    root.className = newTheme;
+    localStorage.setItem("theme", newTheme);
+  };
+
+  document
+    .getElementById("icon--theme-switch")
+    .addEventListener("click", setTheme);
 })();
 
 const gameboardDOM = (() => {
@@ -204,16 +224,4 @@ const gameboardDOM = (() => {
     initPlayerSetting();
     Gameboard.gameStatus = true;
   });
-})();
-
-const themeSwitch = (() => {
-  const setTheme = function() {
-    const root = document.documentElement;
-    const newTheme = root.className === 'dark' ? 'light' : 'dark';
-    root.className = newTheme;
-
-    console.log(newTheme);
-  }
-
-  document.getElementById('icon--theme-switch').addEventListener('click', setTheme)
 })();
