@@ -119,26 +119,29 @@ const Gameboard = (() => {
     }
   }
 
-  // Setting theme based on user's past setting
-  if (localStorage.getItem("theme")) {
-    document.documentElement.className = localStorage.getItem("theme");
+  // Setting theme + theme switch
+  const root = document.documentElement;
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    // dark mode
+    root.className = "dark";
+  } else {
+    root.className = "light";
   }
-})();
-
-const themeSwitch = (() => {
   const setTheme = function () {
     const root = document.documentElement;
-    const newTheme = root.className === "dark" ? "light" : "dark";
-    const svgColor = root.className === "light" ? "white" : "#24283b";
 
+    const newTheme = root.className === "dark" ? "light" : "dark";
     root.className = newTheme;
-    localStorage.setItem("theme", newTheme);
   };
 
   document
     .getElementById("icon--theme-switch")
     .addEventListener("click", setTheme);
 })();
+
 
 const gameboardDOM = (() => {
   let activePlayer = 1;
@@ -168,7 +171,7 @@ const gameboardDOM = (() => {
 
     for (let i = 0; i < boxes.length; i++) {
       boxes[i].innerHTML = "";
-    };
+    }
   };
 
   for (let i = 0; i < boxes.length; i++) {
@@ -203,7 +206,7 @@ const gameboardDOM = (() => {
             Gameboard.gameStatus = false;
           }
 
-          if (Gameboard.isGameOver() === 'tie') {
+          if (Gameboard.isGameOver() === "tie") {
             winnerIndicator.innerHTML = "It's a tie!";
             Gameboard.gameStatus = false;
           }

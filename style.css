@@ -6,11 +6,12 @@
   }
 }
 
+/* Theme */
 :root.dark {
   --base-bg: #24283b;
   --base-text-color: white;
   --base-highlight-color: #8ff0a4;
-}
+} 
 
 :root.light {
   --base-bg: white;
@@ -53,7 +54,7 @@ main {
 /* Gameboard */
 #gameboard-table {
   border-collapse: collpase;
-  border: 2px solid var(--base-text-color);
+  border: 2px solid var(--base-text-color, #24283b);
   margin: 0 auto;
   margin-top: 60px;
   margin-bottom: 40px;
@@ -61,7 +62,7 @@ main {
 }
 
 #gameboard-table td {
-  border: 2px solid var(--base-text-color);
+  border: 2px solid var(--base-text-color, #24283b);
   font-size: 4rem;
   width: 130px;
   height: 130px;
@@ -71,7 +72,7 @@ main {
 }
 
 .player--active {
-  background: var(--base-highlight-color);
+  background: var(--base-highlight-color, #7dcfff);
 }
 
 /* Status display section */
@@ -96,9 +97,9 @@ main {
 }
 
 input[type="text"] {
-  border: 1px solid var(--base-text-color);
-  background: var(--base-bg);
-  color: var(--base-text-color);
+  border: 1px solid var(--base-text-color, #24283b);
+  background: var(--base-bg, white);
+  color: var(--base-text-color, #24283b);
   border-radius: 2px;
   box-sizing: border-box;
   font-size: 1rem;
@@ -110,9 +111,9 @@ input[type="text"] {
 }
 
 button {
-  background-color: var(--base-bg);
-  border: 2px solid var(--base-text-color);
-  color: var(--base-text-color);
+  background-color: var(--base-bg, white);
+  border: 2px solid var(--base-text-color, #24283b);
+  color: var(--base-text-color, #24283b);
   transition-duration: 0.4s;
   font-size: 1.5rem;
   font-family: inherit;
@@ -125,9 +126,9 @@ button {
 }
 
 button:hover {
-  background-color: var(--base-text-color);
-  border: 2px solid var(--base-bg);
-  color: var(--base-bg);
+  background-color: var(--base-text-color, #24283b);
+  border: 2px solid var(--base-bg, white);
+  color: var(--base-bg, white);
 }
 
 #buttons {
@@ -136,5 +137,5 @@ button:hover {
 }
 
 #svg--theme-switch-color {
-  fill: var(--base-text-color)
+  fill: var(--base-text-color, #24283b);
 }
