@@ -156,7 +156,7 @@ const gameboardDOM = (() => {
     p2Indicator.classList.toggle("player--active");
   };
 
-  const initPlayerSetting = function () {
+  const initGameDOM = function () {
     activePlayer = 1;
     p1Indicator.classList.remove("player--active");
     p2Indicator.classList.remove("player--active");
@@ -165,6 +165,10 @@ const gameboardDOM = (() => {
     Gameboard.p1.name = p1Indicator.querySelector("input").value;
     Gameboard.p2.name = p2Indicator.querySelector("input").value;
     winnerIndicator.innerHTML = "";
+
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].innerHTML = "";
+    };
   };
 
   for (let i = 0; i < boxes.length; i++) {
@@ -204,24 +208,18 @@ const gameboardDOM = (() => {
     });
   }
 
-  const clearGameboard = function () {
-    for (let i = 0; i < boxes.length; i++) {
-      boxes[i].innerHTML = "";
-    }
-  };
-
   // Buttons
   startBtn.addEventListener("click", function () {
     if (!Gameboard.gameStatus) {
-      initPlayerSetting();
+      Gameboard.clearGameboard();
+      initGameDOM();
       Gameboard.gameStatus = true;
     }
   });
 
   restartBtn.addEventListener("click", function () {
     Gameboard.clearGameboard();
-    clearGameboard();
-    initPlayerSetting();
+    initGameDOM();
     Gameboard.gameStatus = true;
   });
 })();
