@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+
 /* responsive */
 main {
   width: 95%;
@@ -21,20 +23,25 @@ img {
 }
 
 /* Gameboard */
+* {
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 1.1rem;
+}
+
 #gameboard-table {
   border-collapse: collpase;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 60px;
   margin-bottom: 40px;
   text-align: center;
 }
 
 #gameboard-table td {
-  border: 1px solid black;
+  border: 2px solid black;
   font-size: 4rem;
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   display: table-cell;
   text-align: center;
   vertical-align: middle;
@@ -47,21 +54,38 @@ img {
 /* Player display section */
 #display--players {
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+input[type=text] {
+  padding: 3px 6px;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
 
 button {
-  border: 1px solid black;
-  background: white;
+  background-color: white;
+  border: 2px solid #23222c;
+  color: #23222c;
+  transition-duration: 0.4s;
+  font-size: 1.5rem;
   cursor: pointer;
 
-  padding: 20px 40px;
-  font-size: 2rem;
-  font-weight: 400;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
 button:hover {
-  background: gray;
+  background-color: #23222c;
+  border: 2px solid #eee;
+  color: #eee;
 }
 
 #buttons {

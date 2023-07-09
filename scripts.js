@@ -58,7 +58,6 @@ const Gameboard = (() => {
         gameboard[0][i] === gameboard[1][i] &&
         gameboard[1][i] === gameboard[2][i]
       ) {
-        // console.log(gameStatus);
         const output = gameboard[0][i];
         if (output) return output;
       }
@@ -107,7 +106,7 @@ const Gameboard = (() => {
 
 // the real DOM shit
 
-// Initialization
+// Initialization / Gameboard preparation
 (() => {
   // Indexing table
   const tbodyEl = document.getElementById("gameboard-table").firstElementChild;
@@ -119,73 +118,72 @@ const Gameboard = (() => {
       currentTD.setAttribute("data-col", j);
     }
   }
-
-  // Clear name inputs
-  const inputEl = document.querySelectorAll("input");
-  for (let i = 0; i < inputEl.length; i++) inputEl[i].value = "";
 })();
 
-const GameboardDOM = (() => {
-  let gameStatus = false;
+// Gameboard DOM
+(() => {
+  let activePlayer = 1;
 
+  const startBtn = document.getElementById("button--start");
+  const restartBtn = document.getElementById("button--restart");
   const boxes = document.querySelectorAll("td");
   const p1Indicator = document.getElementById("indicator--p1");
   const p2Indicator = document.getElementById("indicator--p2");
   const winnerIndicator = document.getElementById("indicator--winner");
 
-  const gameStart = function () {
-    gameStatus = true;
+  const switchPlayer = function () {
+    activePlayer = activePlayer == 1 ? 2 : 1;
+    p1Indicator.classList.toggle("player--active");
+    p2Indicator.classList.toggle("player--active");
+  };
 
+  const initPlayerSetting = function () {
+    activePlayer = 1;
+    p1Indicator.classList.remove("player--active");
+    p2Indicator.classList.remove("player--active");
+
+    p1Indicator.classList.toggle("player--active");
     Gameboard.p1.name = p1Indicator.querySelector("input").value;
     Gameboard.p2.name = p2Indicator.querySelector("input").value;
-
-    let activePlayer = 1;
-    const initPlayerSetting = (() => {
-      activePlayer = 1;
-      p1Indicator.classList.remove("player--active");
-      p2Indicator.classList.remove("player--active");
-
-      p1Indicator.classList.toggle("player--active");
-    })();
-
-    const switchPlayer = function () {
-      activePlayer = activePlayer == 1 ? 2 : 1;
-      p1Indicator.classList.toggle("player--active");
-      p2Indicator.classList.toggle("player--active");
-    };
-
-    for (let i = 0; i < boxes.length; i++) {
-      boxes[i].addEventListener("click", function (event) {
-        if (gameStatus) {
-          const row = event.target.closest("tr").getAttribute("data-row");
-          const col = boxes[i].getAttribute("data-col");
-
-          if (!boxes[i].innerHTML) {
-            if (activePlayer === 1) {
-              Gameboard.addMark(Gameboard.p1.mark, [row, col]);
-              boxes[i].innerHTML = Gameboard.p1.mark;
-            } else if (activePlayer === 2) {
-              Gameboard.addMark(Gameboard.p2.mark, [row, col]);
-              boxes[i].innerHTML = Gameboard.p2.mark;
-            }
-
-            if (Gameboard.isGameOver() === Gameboard.p1.mark) {
-              winnerIndicator.innerHTML = `Congrats, ${
-                Gameboard.p1.name || "Player 1"
-              }!`;
-              gameStatus = false;
-            } else if (Gameboard.isGameOver() === Gameboard.p2.mark) {
-              winnerIndicator.innerHTML = `Congrats, ${
-                Gameboard.p2.name || "Player 2"
-              }!`;
-              gameStatus = false;
-            }
-            switchPlayer();
-          }
-        }
-      });
-    }
+    winnerIndicator.innerHTML = "";
   };
+
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener("click", function (event) {
+      if (Gameboard.gameStatus) {
+        const row = event.target.closest("tr").getAttribute("data-row");
+        const col = boxes[i].getAttribute("data-col");
+
+        if (!boxes[i].innerHTML) {
+          if (activePlayer === 1) {
+            Gameboard.addMark(Gameboard.p1.mark, [row, col]);
+            boxes[i].innerHTML = Gameboard.p1.mark;
+          } else if (activePlayer === 2) {
+            Gameboard.addMark(Gameboard.p2.mark, [row, col]);
+            boxes[i].innerHTML = Gameboard.p2.mark;
+          }
+
+          if (
+            Gameboard.isGameOver() === Gameboard.p1.mark ||
+            Gameboard.isGameOver() === Gameboard.p2.mark
+          ) {
+            const winner =
+              Gameboard.isGameOver() === Gameboard.p1.mark
+                ? Gameboard.p1
+                : Gameboard.p2;
+            const winnerName = winner.name
+              ? winner.name
+              : winner === Gameboard.p1
+              ? "Player 1"
+              : "Player 2";
+            winnerIndicator.innerHTML = `Congrats, ${winnerName}!`;
+            Gameboard.gameStatus = false;
+          }
+          switchPlayer();
+        }
+      }
+    });
+  }
 
   const clearGameboard = function () {
     for (let i = 0; i < boxes.length; i++) {
@@ -193,22 +191,18 @@ const GameboardDOM = (() => {
     }
   };
 
-  return {
-    gameStart,
-    clearGameboard,
-  };
+  // Buttons
+  startBtn.addEventListener("click", function () {
+    if (!Gameboard.gameStatus) {
+      initPlayerSetting();
+      Gameboard.gameStatus = true;
+    }
+  });
+
+  restartBtn.addEventListener("click", function () {
+    Gameboard.clearGameboard();
+    clearGameboard();
+    initPlayerSetting();
+    Gameboard.gameStatus = true;
+  });
 })();
-
-const startBtn = document.getElementById("button--start");
-const restartBtn = document.getElementById("button--restart");
-
-restartBtn.addEventListener("click", function () {
-  Gameboard.clearGameboard();
-
-  GameboardDOM.clearGameboard();
-  GameboardDOM.gameStart();
-});
-
-startBtn.addEventListener("click", function () {
-  GameboardDOM.gameStart();
-});
