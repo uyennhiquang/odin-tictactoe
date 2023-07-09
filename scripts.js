@@ -120,8 +120,7 @@ const Gameboard = (() => {
   }
 })();
 
-// Gameboard DOM
-(() => {
+const gameboardDOM = (() => {
   let activePlayer = 1;
 
   const startBtn = document.getElementById("button--start");
@@ -205,4 +204,16 @@ const Gameboard = (() => {
     initPlayerSetting();
     Gameboard.gameStatus = true;
   });
+})();
+
+const themeSwitch = (() => {
+  const setTheme = function() {
+    const root = document.documentElement;
+    const newTheme = root.className === 'dark' ? 'light' : 'dark';
+    root.className = newTheme;
+
+    console.log(newTheme);
+  }
+
+  document.getElementById('icon--theme-switch').addEventListener('click', setTheme)
 })();

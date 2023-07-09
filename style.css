@@ -1,4 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+/* if screen width >= 768 px, make the main skinnier so it's easier to read*/
+@media only screen and (min-width: 768px) {
+  main {
+    max-width: 60% !important;
+  }
+}
+
+:root.dark {
+  --base-bg: #24283b;
+  --base-text-color: white;
+  --base-highlight-color: #8ff0a4;
+}
+
+:root.light {
+  --base-bg: white;
+  --base-text-color: #24283b;
+  --base-highlight-color: #7dcfff;
+}
 
 /* responsive */
 main {
@@ -10,27 +28,32 @@ img {
   width: 100%;
 }
 
-/* if screen width >= 768 px, make the main skinnier so it's easier to read*/
-@media only screen and (min-width: 768px) {
-  main {
-    max-width: 60% !important;
-  }
-}
-
 /* Styling classes */
 .flex {
   display: flex;
 }
 
-/* Gameboard */
-* {
+/* Theme elements styling */
+html,
+body,
+main {
+  height: 100%;
+}
+
+body {
+  color: var(--base-text-color);
+  background: var(--base-bg);
+}
+
+main {
   font-family: "Press Start 2P", sans-serif;
   font-size: 1.1rem;
 }
 
+/* Gameboard */
 #gameboard-table {
   border-collapse: collpase;
-  border: 2px solid black;
+  border: 2px solid var(--base-text-color);
   margin: 0 auto;
   margin-top: 60px;
   margin-bottom: 40px;
@@ -38,7 +61,7 @@ img {
 }
 
 #gameboard-table td {
-  border: 2px solid black;
+  border: 2px solid var(--base-text-color);
   font-size: 4rem;
   width: 130px;
   height: 130px;
@@ -48,32 +71,50 @@ img {
 }
 
 .player--active {
-  background: yellow;
+  background: var(--base-highlight-color);
 }
 
-/* Player display section */
+/* Status display section */
+#display--status {
+  margin-top: 10px;
+  cursor: default;
+}
+
+#icon--theme-switch {
+  max-width: 30px;
+  cursor: pointer;
+  position: relative;
+  left: 95%;
+  margin-bottom: 10px;
+}
+
 #display--players {
-  justify-content: space-between;
-  margin-top: 40px;
-  margin-bottom: 30px;
+  justify-content: space-around;
   font-size: 1.1rem;
+
+  margin-bottom: 30px;
 }
 
-input[type=text] {
-  padding: 3px 6px;
-  display: inline-block;
-  border: 1px solid black;
+input[type="text"] {
+  border: 1px solid var(--base-text-color);
+  background: var(--base-bg);
+  color: var(--base-text-color);
   border-radius: 2px;
   box-sizing: border-box;
   font-size: 1rem;
+  font-family: inherit;
+
+  padding: 3px 6px;
+  display: inline-block;
 }
 
 button {
-  background-color: white;
-  border: 2px solid #23222c;
-  color: #23222c;
+  background-color: var(--base-bg);
+  border: 2px solid var(--base-text-color);
+  color: var(--base-text-color);
   transition-duration: 0.4s;
   font-size: 1.5rem;
+  font-family: inherit;
   cursor: pointer;
 
   padding: 1rem 2rem;
@@ -83,9 +124,9 @@ button {
 }
 
 button:hover {
-  background-color: #23222c;
-  border: 2px solid #eee;
-  color: #eee;
+  background-color: var(--base-text-color);
+  border: 2px solid var(--base-bg);
+  color: var(--base-bg);
 }
 
 #buttons {
