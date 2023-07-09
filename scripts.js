@@ -202,6 +202,11 @@ const gameboardDOM = (() => {
             winnerIndicator.innerHTML = `Congrats, ${winnerName}!`;
             Gameboard.gameStatus = false;
           }
+
+          if (Gameboard.isGameOver() === 'tie') {
+            winnerIndicator.innerHTML = "It's a tie!";
+            Gameboard.gameStatus = false;
+          }
           switchPlayer();
         }
       }
