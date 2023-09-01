@@ -104,8 +104,7 @@ const Gameboard = (() => {
   };
 })();
 
-// the real DOM shit
-
+// DOM
 // Initialization / Gameboard preparation
 (() => {
   // Indexing table
